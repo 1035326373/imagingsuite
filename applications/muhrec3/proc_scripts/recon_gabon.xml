@@ -1,0 +1,132 @@
+<reconstructor>
+    <userinformation>
+        <operator>unknown</operator>
+        <instrument>beamline</instrument>
+        <projectnumber>P20yyxxxx</projectnumber>
+        <sample>Test bodies</sample>
+        <comment>No comment</comment>
+    </userinformation>
+    <system>
+        <memory>4000</memory>
+        <loglevel>message</loglevel>
+    </system>
+    <projections>
+        <dims>100 100</dims>
+        <beamgeometry>cone</beamgeometry>
+        <resolution>0.139 0.139</resolution>
+        <binning>1</binning>
+        <margin>2</margin>
+        <firstindex>0</firstindex>
+        <lastindex>625</lastindex>
+        <projectionstep>1</projectionstep>
+        <repeatline>false</repeatline>
+        <scantype>sequential</scantype>
+        <imagetype>projections</imagetype>
+        <center>622.264</center>
+        <sod>282</sod>
+        <sdd>784</sdd>
+        <direction>RotationDirCW</direction>
+        <pPoint>806.57 1268.68</pPoint>
+        <translation>false</translation>
+        <tiltangle>0.1661</tiltangle>
+        <tiltpivot>1268</tiltpivot>
+        <correcttilt>true</correcttilt>
+        <filemask>/Users/data/P20170977/02_rawdata/03_Gabon/02_0779_0116_X/fossils01_#####.fits</filemask>
+        <path></path>
+        <referencepath></referencepath>
+        <obfilemask>/Users/data/P20170977/02_rawdata/03_Gabon/02_0779_0116_X/ob_#####.fits</obfilemask>
+        <obfirstindex>1</obfirstindex>
+        <obcount>10</obcount>
+        <dcfilemask>/Users/data/P20170977/02_rawdata/03_Gabon/02_0779_0116_X/dc_#####.fits</dcfilemask>
+        <dcfirstindex>1</dcfirstindex>
+        <dccount>10</dccount>
+        <roi>350 220 1640 1630</roi>
+        <projroi>350 200 1640 1650</projroi>
+        <doseroi>70 60 157 212</doseroi>
+        <scanarc>0 360</scanarc>
+        <rotate>imagerotatenone</rotate>
+        <flip>imageflipnone</flip>
+    </projections>
+    <matrix>
+        <dims>1290 1290 1430</dims>
+        <rotation>60</rotation>
+        <serialize>true</serialize>
+        <path>/Users/data/P20170977/04_evaluation/03_Gabon/02_0779_0116_X/</path>
+        <matrixname>r0779_0116X_####.tif</matrixname>
+        <filetype>TIFF16bits</filetype>
+        <firstindex>0</firstindex>
+        <grayinterval>-0.1 1.5</grayinterval>
+        <useroi>false</useroi>
+        <roi>0 0 100 100 </roi>
+        <voxelsize>0.0499974 0.0499974 0.0499974 </voxelsize>
+        <voi>0 1290 0 1290 0 1410</voi>
+    </matrix>
+    <processchain>
+        <preprocessing>
+            <module>
+                <modulename>FullLogNorm</modulename>
+                <sharedobject>/Applications/muhrec3.app/Contents/MacOS/../Frameworks/libStdPreprocModules.dylib</sharedobject>
+                <active>true</active>
+                <parameters>
+                    <referenceaverage>ImageWeightedAverage</referenceaverage>
+                    <uselut>false</uselut>
+                    <usenormregion>true</usenormregion>
+                </parameters>
+            </module>
+            <module>
+                <modulename>MorphSpotClean</modulename>
+                <sharedobject>/Applications/muhrec3.app/Contents/MacOS/../Frameworks/libStdPreprocModules.dylib</sharedobject>
+                <active>false</active>
+                <parameters>
+                    <cleanmethod>morphcleanreplace</cleanmethod>
+                    <connectivity>conn4</connectivity>
+                    <detectionmethod>morphdetectboth</detectionmethod>
+                    <edgesmooth>5</edgesmooth>
+                    <maxarea>30</maxarea>
+                    <maxlevel>12</maxlevel>
+                    <minlevel>-0.1</minlevel>
+                    <sigma>0.0001</sigma>
+                    <threading>false</threading>
+                    <threshold>0.01</threshold>
+                </parameters>
+            </module>
+            <module>
+                <modulename>WaveletRingClean</modulename>
+                <sharedobject>/Applications/muhrec3.app/Contents/MacOS/../Frameworks/libStdPreprocModules.dylib</sharedobject>
+                <active>true</active>
+                <parameters>
+                    <decnum>3</decnum>
+                    <method>verticalfft</method>
+                    <parallel>false</parallel>
+                    <sigma>0.01</sigma>
+                    <wname>daub17</wname>
+                </parameters>
+            </module>
+            <module>
+                <modulename>ProjectionFilterSingle</modulename>
+                <sharedobject>/Applications/muhrec3.app/Contents/MacOS/../Frameworks/libStdPreprocModules.dylib</sharedobject>
+                <active>false</active>
+                <parameters>
+                    <biasweight>0.1</biasweight>
+                    <cutoff>0.5</cutoff>
+                    <filtertype>Hamming</filtertype>
+                    <order>1</order>
+                    <paddingdoubler>2</paddingdoubler>
+                    <usebias>true</usebias>
+                </parameters>
+            </module>
+        </preprocessing>
+        <backprojector>
+            <module>
+                <modulename>FDKbp_single</modulename>
+                <sharedobject>/Users/kaestner/Applications/muhrec3.app/Contents/Frameworks/libFDKBackProjectors.1.0.0.dylib</sharedobject>
+                <active>true</active>
+                <parameters>
+                    <ProjectionBufferSize>2000</ProjectionBufferSize>
+                    <SliceBlock>32</SliceBlock>
+                    <SubVolume>0 0</SubVolume>
+                </parameters>
+            </module>
+        </backprojector>
+    </processchain>
+</reconstructor>
