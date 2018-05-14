@@ -126,6 +126,9 @@ protected:
 	BackProjItem * m_BackProjector;
 
 	kipl::base::TImage<float,3> m_Volume;
+    int nHistBins;
+    size_t *histBins;
+    float *histAxis;
 	std::map<float,ProjectionInfo> m_ProjectionList;
 	std::map<std::string, float> m_PreprocCoefficients;
 

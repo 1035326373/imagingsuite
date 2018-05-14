@@ -22,6 +22,9 @@ ReconEngine::ReconEngine(std::string name, kipl::interactors::InteractionBase *i
     m_ProjectionMargin(0),
 	m_ProjectionReader(interactor),
     m_BackProjector(nullptr),
+    nHistBins(4096),
+    histBins(nullptr),
+    histAxis(nullptr),
     nProcessedBlocks(0),
 	nProcessedProjections(0),
 	nTotalProcessedProjections(0),
@@ -37,6 +40,9 @@ ReconEngine::ReconEngine(std::string name, kipl::interactors::InteractionBase *i
 		logger(kipl::logging::Logger::LogMessage,"An interactor was not provided");
 
 	}
+
+    histAxis=new float[nHistBins];
+
 
 }
 
@@ -60,6 +66,11 @@ ReconEngine::~ReconEngine(void)
 
     if (m_BackProjector!=nullptr)
 		delete m_BackProjector;
+    if (histBins!=nullptr)
+        delete [] histBins;
+
+    if (histAxis!=nullptr)
+        delete [] histAxis;
 }
 
 void ReconEngine::SetConfig(ReconConfig &config)
